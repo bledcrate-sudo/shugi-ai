@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0b14"/>
+      <stop offset="1" stop-color="#1a1230"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a855f7"/>
+      <stop offset="0.55" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#a855f7" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="220" fill="url(#bg)"/>
+  <circle cx="512" cy="512" r="420" fill="url(#glow)"/>
+  <!-- Stylized S as neural path -->
+  <path d="M712 332
+           C 712 256, 624 220, 528 220
+           C 412 220, 332 280, 332 376
+           C 332 460, 408 492, 512 512
+           C 624 532, 692 568, 692 652
+           C 692 752, 600 808, 488 808
+           C 384 808, 308 768, 308 692"
+        stroke="url(#mark)" stroke-width="76" stroke-linecap="round" fill="none"/>
+  <!-- Neural nodes -->
+  <circle cx="332" cy="376" r="34" fill="#22d3ee"/>
+  <circle cx="692" cy="652" r="34" fill="#a855f7"/>
+  <circle cx="512" cy="512" r="28" fill="#ffffff"/>
+  <!-- AI dot accent -->
+  <circle cx="800" cy="800" r="40" fill="url(#mark)"/>
+</svg>

@@ -1,0 +1,72 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Generate icons and splash from SVG
+        run: |
+          npx @capacitor/assets generate --ios --iconBackgroundColor '#0b0b14' --splashBackgroundColor '#0b0b14' || true
+
+      - name: Add iOS platform
+        run: npx cap add ios || npx cap sync ios
+
+      - name: Sync Capacitor
+        run: npx cap sync ios
+
+      - name: Install CocoaPods
+        working-directory: ios/App
+        run: pod install --repo-update
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app || sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build unsigned archive
+        working-directory: ios/App
+        run: |
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath $PWD/build/App.xcarchive \
+            archive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE=""
+
+      - name: Package unsigned .ipa
+        working-directory: ios/App
+        run: |
+          mkdir -p build/Payload
+          cp -r build/App.xcarchive/Products/Applications/App.app build/Payload/
+          cd build
+          zip -qr ShugiAI-unsigned.ipa Payload
+          ls -lh ShugiAI-unsigned.ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShugiAI-unsigned-ipa
+          path: ios/App/build/ShugiAI-unsigned.ipa
+          retention-days: 30

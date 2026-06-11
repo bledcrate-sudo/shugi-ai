@@ -1,0 +1,23 @@
+{
+  "appId": "com.shugiai.app",
+  "appName": "Shugi AI",
+  "webDir": "www",
+  "server": {
+    "iosScheme": "shugiai",
+    "allowNavigation": ["shugiai.com", "*.shugiai.com"]
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "limitsNavigationsToAppBoundDomains": false,
+    "backgroundColor": "#0b0b14"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "backgroundColor": "#0b0b14",
+      "showSpinner": false,
+      "splashFullScreen": true,
+      "splashImmersive": true
+    }
+  }
+}
