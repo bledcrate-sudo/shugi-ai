@@ -22,12 +22,11 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Generate icons and splash from SVG
-        run: |
-          npx @capacitor/assets generate --ios --iconBackgroundColor '#0b0b14' --splashBackgroundColor '#0b0b14' || true
-
       - name: Add iOS platform
         run: npx cap add ios || npx cap sync ios
+
+      - name: Generate icons and splash
+        run: npx @capacitor/assets generate --ios --iconBackgroundColor '#0b0b14' --splashBackgroundColor '#0b0b14'
 
       - name: Sync Capacitor
         run: npx cap sync ios
