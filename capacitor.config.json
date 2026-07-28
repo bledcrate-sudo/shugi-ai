@@ -3,6 +3,7 @@
   "appName": "Shugi AI",
   "webDir": "www",
   "server": {
+    "url": "https://shugiai.com/chat",
     "iosScheme": "shugiai",
     "allowNavigation": ["shugiai.com", "*.shugiai.com"]
   },
